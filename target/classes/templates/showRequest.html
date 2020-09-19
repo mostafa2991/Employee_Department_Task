@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<nav th:replace="layout :: header"></nav>
+
+<div class="container main-content list">
+    <div th:if="${success}"
+         class="row alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <span th:text="${success}"></span>
+    </div>
+    
+    <th:block th:if="${#sets.isEmpty(employees)}">
+        <h3>No employee</h3>
+    </th:block>
+
+    <th:block th:unless="${#sets.isEmpty(employees)}">
+        <div class="row">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Full Name</th>
+                    <th>Department</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${depEmployees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.department.name}"></td>
+                    <td><a th:href="@{/employee/{id}/edit(id=${employee.id})}"><span
+                            class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td><a th:href="@{/employee/{id}/delete(id=${employee.id})}"><span
+                            class="glyphicon glyphicon-trash"></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </th:block>
+    
+    
+        
+</div>
+<!-- /.container -->
+
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

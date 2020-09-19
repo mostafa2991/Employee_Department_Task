@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content form">
+		<div class="row">
+			<form action="@{/employee/save}" th:action="@{/employee/save}"
+				th:object="${employee}" method="POST">
+				<input type="hidden" th:field="*{id}" />
+				<div class="form-group">
+					<label>Name</label> <input type="text" class="form-control"
+						th:field="*{name}" />
+				</div>
+
+				<div class="form-group">
+					<label>Department</label> <select class="form-control"
+						th:field="*{department.name}">
+						<option th:each="department : ${departs}" th:value="${department}"
+							th:text="${department}">
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
+		</div>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
